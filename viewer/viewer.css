@@ -1,3 +1,4 @@
+/* Modified by DesireCore for the diagram distribution. */
 /* ==========================================================
    THEME VARIABLES — switch by toggling [data-theme] on <html>
    ========================================================== */
@@ -4472,7 +4473,6 @@ html[data-ambient-motion="running"][data-motion="live"]:not([data-motion-owner])
     margin-left: auto;
     margin-bottom: 1rem;
   }
-  .toolbar:has(> #code-analysis-info) { flex-wrap: wrap; }
   .header { margin-bottom: 1.25rem; padding-right: 0; }
   html[data-preset="signal-flow"] .header,
   html[data-preset="blueprint"] .header,

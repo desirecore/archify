@@ -1,3 +1,4 @@
+// Modified by DesireCore for the diagram distribution.
 import { execFile } from 'node:child_process';
 import { createHash, randomUUID } from 'node:crypto';
 import fs from 'node:fs';
@@ -695,7 +696,6 @@ export function compactFinalizeReceipt(receipt) {
     },
     evidence: receipt.evidence,
     ...(receipt.repositoryReferences ? { repositoryReferences: receipt.repositoryReferences } : {}),
-    ...(receipt.codeAnalysisOffer ? { codeAnalysisOffer: receipt.codeAnalysisOffer } : {}),
     ...(receipt.update && receipt.update.status !== 'unavailable'
       ? { update: receipt.update }
       : {}),
@@ -873,28 +873,6 @@ function repairSourceRanges(candidatePath, diagnostics, specification, expected)
   }
 }
 
-async function getMissingAnalysisDependencies() {
-  const { missingAnalysisDependencies } = await import('../modules/code-analysis/bin/serve.mjs');
-  return missingAnalysisDependencies();
-}
-
-function codeAnalysisOffer({ cliPath, repoRoot, candidate, bytes, quality, missingDependencies }) {
-  const doc = parsedReceipt(bytes);
-  const linkedDiagrams = doc?.meta?.parentHref
-    || doc?.components?.some(component => component.href || component.drilldowns?.length);
-  return {
-    action: 'offer-code-analysis',
-    reason: 'Archify’s built-in Architecture Diagnosis adds component findings, a radial star map, and a rotatable 3D view of repository dependencies.',
-    instruction: 'Use the referenced pitch once per repository and wait for consent before starting.',
-    dependencies: missingDependencies.length ? 'missing' : 'installed',
-    diagramButton: Boolean(doc?.meta?.repository),
-    quality,
-    start: { argv: [process.execPath, cliPath, 'start', path.resolve(repoRoot), '--ir', candidate, '--quality', quality] },
-    ...(linkedDiagrams ? { linkedDiagrams: true } : {}),
-    reference: 'references/delivery-contract.md#architecture-diagnosis-offer',
-  };
-}
-
 export async function runFinalize({
   cliPath,
   type,
@@ -915,7 +893,6 @@ export async function runFinalize({
   runCommand = defaultRunner,
   runBrowserCheck,
   startUpdateCheck = startDeliveryUpdateCheck,
-  checkMissingAnalysisDependencies = getMissingAnalysisDependencies,
   resolveChrome = findChrome,
   createBrowser = (chromePath, options) => new ChromeVisualBrowser(chromePath, options),
 } = {}) {
@@ -1278,19 +1255,6 @@ export async function runFinalize({
         ? { status: 'verified', revision: source.revision, count: source.references }
         : { status: 'not-declared', count: 0,
           guidance: 'For a repository diagram, pin meta.repository and cite the source ranges on its primary elements, then rerun finalize.' };
-      if (type === 'architecture') {
-        try {
-          const { hasDefaultAnalysisSources } = await import('../modules/code-analysis/extract/shared/files.mjs');
-          if (hasDefaultAnalysisSources(repoRoot)) {
-            const missingDependencies = await checkMissingAnalysisDependencies();
-            receipt.codeAnalysisOffer = codeAnalysisOffer({
-              cliPath, repoRoot, candidate: resolvedInput, bytes: finalizedCandidate.bytes, quality, missingDependencies,
-            });
-          }
-        } catch {
-          // The optional Diagnosis offer must never invalidate a successful delivery.
-        }
-      }
     }
     receipt.artifact = receipt.ok
       ? { path: resolvedOutput, ...receipt.stages.deliver.receipt.artifact }

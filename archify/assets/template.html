@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark" data-preset="[VISUAL PRESET]">
 <head>
+  <!-- Modified by DesireCore for the diagram distribution. -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="dark light">
@@ -168,6 +169,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
   </style>
   <style>
+    /* Modified by DesireCore for the diagram distribution. */
     /* ==========================================================
        THEME VARIABLES — switch by toggling [data-theme] on <html>
        ========================================================== */
@@ -4642,7 +4644,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         margin-left: auto;
         margin-bottom: 1rem;
       }
-      .toolbar:has(> #code-analysis-info) { flex-wrap: wrap; }
       .header { margin-bottom: 1.25rem; padding-right: 0; }
       html[data-preset="signal-flow"] .header,
       html[data-preset="blueprint"] .header,
@@ -5998,54 +5999,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       .focus-chip[data-explaining="true"] { overflow: hidden; }
     }
   </style>
-  <!-- ARCHIFY:DIAGNOSIS_START -->
-  <style id="code-analysis-entry-style">
-    /* The Code Analysis entry in the diagram toolbar: the static information
-       button, the live launcher before a run and the layer toggle after it
-       (#btn-bauify, overlay.js). It sits before Export, drawn as its own capsule
-       like the tool group, so Export stays the one primary action at the end. */
-    .toolbar .analysis-entry { padding-inline: 0.75rem 0.8rem; color: var(--text); }
-    .toolbar .analysis-entry::before {
-      inset: 0.25rem 0;
-      border: 1px solid color-mix(in srgb, var(--panel-border) 85%, transparent);
-      border-radius: 0.6875rem;
-      background: color-mix(in srgb, var(--panel) 78%, transparent);
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 20px -14px rgba(15, 23, 42, 0.22);
-      backdrop-filter: blur(12px);
-    }
-    .toolbar .analysis-entry:hover::before,
-    .toolbar .analysis-entry[aria-expanded="true"]::before { background: color-mix(in srgb, var(--text) 6%, var(--panel)); }
-    .toolbar .analysis-entry[aria-pressed="true"]::before {
-      border-color: color-mix(in srgb, var(--backend-stroke, #34D399) 55%, transparent);
-      background: color-mix(in srgb, var(--backend-stroke, #34D399) 14%, var(--panel));
-    }
-    .toolbar .analysis-entry:disabled { cursor: default; color: var(--text-muted); }
-    .toolbar .analysis-entry[aria-busy="true"] { cursor: progress; }
-    .analysis-entry-icon {
-      width: 0.95rem; height: 0.95rem; flex: 0 0 auto; background: currentColor;
-      -webkit-mask: var(--analysis-entry-icon) center / contain no-repeat;
-      mask: var(--analysis-entry-icon) center / contain no-repeat;
-      --analysis-entry-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12h4l3-8 4 16 3-8h4'/%3E%3C/svg%3E");
-    }
-    .analysis-entry[aria-pressed="true"] .analysis-entry-icon { color: var(--backend-stroke, #34D399); }
-    .analysis-entry[aria-busy="true"] .analysis-entry-icon {
-      --analysis-entry-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M12 3a9 9 0 1 0 9 9'/%3E%3C/svg%3E");
-      animation: analysis-entry-spin 0.9s linear infinite;
-    }
-    @keyframes analysis-entry-spin { to { transform: rotate(360deg); } }
-    @media (prefers-reduced-motion: reduce) { .analysis-entry[aria-busy="true"] .analysis-entry-icon { animation: none; } }
-    /* The finding count is generated content, so the button's text stays its label. */
-    .analysis-entry[data-count]::after {
-      content: attr(data-count);
-      min-width: 1.25rem; padding: 0.0625rem 0.375rem; box-sizing: border-box;
-      border-radius: 999px; text-align: center;
-      font-size: 0.6875rem; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.1rem;
-      color: var(--text-muted); background: color-mix(in srgb, var(--text) 9%, transparent);
-    }
-    .analysis-entry[aria-pressed="true"][data-count]::after { color: var(--text); background: color-mix(in srgb, var(--backend-stroke, #34D399) 22%, transparent); }
-    .analysis-entry[data-tone="error"][data-count]::after { color: #fff; background: #E11D48; }
-  </style>
-  <!-- ARCHIFY:DIAGNOSIS_END -->
 </head>
 <body>
   <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
@@ -6111,13 +6064,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       <span id="present-label">{{i18n:viewer.present.present}}</span>
     </button>
     </div>
-    <!-- ARCHIFY:DIAGNOSIS_START -->
-    <button id="code-analysis-info" class="analysis-entry" type="button"
-            aria-haspopup="dialog" aria-expanded="false" aria-controls="code-analysis-dialog">
-      <span class="analysis-entry-icon" aria-hidden="true"></span>
-      <span>{{i18n:viewer.diagnosis.button}}</span>
-    </button>
-    <!-- ARCHIFY:DIAGNOSIS_END -->
     <div class="export-wrap">
       <button id="btn-export" type="button"
               title="{{i18n:viewer.export.button.title}}"
@@ -6634,39 +6580,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   </footer>
   <!-- ARCHIFY:FEEDBACK_END -->
 
-  <!-- ARCHIFY:DIAGNOSIS_START -->
-  <dialog id="code-analysis-dialog" class="no-print" aria-labelledby="code-analysis-title">
-    <header class="analysis-info-header">
-      <span class="analysis-info-mark" aria-hidden="true"></span>
-      <div class="analysis-info-heading">
-        <h2 id="code-analysis-title">{{i18n:viewer.diagnosis.title}}</h2>
-        <p class="analysis-info-badge">{{i18n:viewer.diagnosis.local}}</p>
-      </div>
-      <form method="dialog">
-        <button class="analysis-info-close" type="submit" aria-label="{{i18n:viewer.common.close}}" autofocus><span class="analysis-info-glyph" aria-hidden="true"></span></button>
-      </form>
-    </header>
-    <ul class="analysis-info-features">
-      <li data-feature="star"><span class="analysis-info-icon" aria-hidden="true"></span><span class="analysis-info-copy"><strong>{{i18n:viewer.diagnosis.starMapTitle}}</strong> <span>{{i18n:viewer.diagnosis.starMap}}</span></span></li>
-      <li data-feature="model"><span class="analysis-info-icon" aria-hidden="true"></span><span class="analysis-info-copy"><strong>{{i18n:viewer.diagnosis.modelTitle}}</strong> <span>{{i18n:viewer.diagnosis.model}}</span></span></li>
-      <li data-feature="counts"><span class="analysis-info-icon" aria-hidden="true"></span><span class="analysis-info-copy"><strong>{{i18n:viewer.diagnosis.countsTitle}}</strong> <span>{{i18n:viewer.diagnosis.counts}}</span></span></li>
-      <li data-feature="fix"><span class="analysis-info-icon" aria-hidden="true"></span><span class="analysis-info-copy"><strong>{{i18n:viewer.diagnosis.findingsTitle}}</strong> <span>{{i18n:viewer.diagnosis.findings}}</span></span></li>
-    </ul>
-    <section class="analysis-info-start">
-      <p class="analysis-info-ask">{{i18n:viewer.diagnosis.ask}}</p>
-      <div class="analysis-info-bubble">
-        <div class="analysis-info-prompt">
-          <p><q id="code-analysis-prompt">{{i18n:viewer.diagnosis.prompt}}</q></p>
-        </div>
-        <button id="code-analysis-copy" type="button">
-          <span class="analysis-info-glyph" aria-hidden="true"></span>
-          <span>{{i18n:viewer.diagnosis.copy}}</span>
-        </button>
-      </div>
-      <div id="code-analysis-copy-status" role="status"></div>
-    </section>
-  </dialog>
-  <!-- ARCHIFY:DIAGNOSIS_END -->
 
   <script>
     var Archify = {};
@@ -6739,36 +6652,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       }
       return Promise.resolve(fallbackCopy());
     }
-
-    (function () {
-      var trigger = document.getElementById('code-analysis-info');
-      if (!trigger) return;
-      var dialog = document.getElementById('code-analysis-dialog');
-      var status = document.getElementById('code-analysis-copy-status');
-      trigger.addEventListener('click', function () {
-        status.textContent = '';
-        dialog.showModal();
-        trigger.setAttribute('aria-expanded', 'true');
-      });
-      dialog.addEventListener('close', function () {
-        trigger.setAttribute('aria-expanded', 'false');
-        trigger.focus({ preventScroll: true });
-      });
-      // Keep Viewer shortcuts outside the modal while allowing native dialog keys.
-      dialog.addEventListener('keydown', function (event) { event.stopPropagation(); });
-      dialog.addEventListener('click', function (event) {
-        if (event.target !== dialog) return;
-        var bounds = dialog.getBoundingClientRect();
-        if (event.clientX < bounds.left || event.clientX > bounds.right ||
-            event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
-      });
-      document.getElementById('code-analysis-copy').addEventListener('click', function () {
-        var prompt = document.getElementById('code-analysis-prompt').textContent;
-        copyReaderText(prompt, dialog).then(function (copied) {
-          status.textContent = viewerText(copied ? 'viewer.common.copied' : 'viewer.common.copyFailed');
-        });
-      });
-    })();
 
     (function () {
       var menu = document.getElementById('page-feedback-menu');

@@ -24,3 +24,13 @@ permission.
 
 These software licenses cover Archify's embedded runtime and templates, not
 ownership of a user's authored content, business data, or source repository.
+
+DesireCore diagram edition based on Archify v3.3.0. DesireCore modified the
+skill sources to ship the diagram, preview and export workflows. The upstream
+copyright and permission notices are preserved with this distribution.
+
+Modified files in the installed scope include SKILL.md, bin/archify.mjs,
+bin/finalize.mjs, package.json, references/delivery-contract.md,
+renderers/shared/cli.mjs, renderers/shared/utils.mjs, the Viewer template,
+the Viewer locale files, and the third-party notices. The installed scope
+omits the upstream standalone Code Analysis module and its vendor files.

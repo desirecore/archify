@@ -1,3 +1,4 @@
+// Modified by DesireCore for the diagram distribution.
 import {
   escapeHtml as esc,
   localizeTemplate,
@@ -130,7 +131,6 @@ ${card.items.map((item) => `          <li>${esc(item)}</li>`).join('\n')}
 const SVG_SLOT_RE = /      <!-- ARCHIFY:SVG_SLOT_START -->[\s\S]*?      <!-- ARCHIFY:SVG_SLOT_END -->/;
 const CARDS_SLOT_RE = /    <!-- ARCHIFY:CARDS_SLOT_START -->[\s\S]*?    <!-- ARCHIFY:CARDS_SLOT_END -->/;
 const FEEDBACK_SECTION_RE = /^ *<!-- ARCHIFY:FEEDBACK_START -->\r?\n([\s\S]*?)^ *<!-- ARCHIFY:FEEDBACK_END -->\r?\n/gm;
-const DIAGNOSIS_SECTION_RE = /^ *<!-- ARCHIFY:DIAGNOSIS_START -->\r?\n([\s\S]*?)^ *<!-- ARCHIFY:DIAGNOSIS_END -->\r?\n/gm;
 const SUBTITLE_SLOT_RE = /^([ \t]*)<p class="subtitle">\[Subtitle description\]<\/p>[ \t]*(\r?\n)?/m;
 const SOURCE_EVIDENCE_PLACEHOLDER = '    <!-- ARCHIFY:SOURCE_EVIDENCE_DATA -->';
 const I18N_PLACEHOLDER = '    <!-- ARCHIFY:I18N_DATA -->';
@@ -158,7 +158,6 @@ export function applyTemplate(template, {
   cards,
   locale,
   visualPreset = 'classic',
-  diagramButton = false,
   feedbackLinks = true,
   sourceEvidence = null,
   explanations = null,
@@ -209,7 +208,7 @@ export function applyTemplate(template, {
     ? `<p class="subtitle">${esc(subtitle)}</p>`
     : '';
   const i18nData = `    <script id="archify-i18n-data" type="application/json">${i18nJson}</script>`;
-  return localizeTemplate(template.replace(DIAGNOSIS_SECTION_RE, (_match, section) => diagramButton ? section : '').replace(FEEDBACK_SECTION_RE, (_match, section) => feedbackLinks ? section : ''), resolvedLocale)
+  return localizeTemplate(template.replace(FEEDBACK_SECTION_RE, (_match, section) => feedbackLinks ? section : ''), resolvedLocale)
     .replace(I18N_PLACEHOLDER, () => i18nData)
     .replace(TEMPLATE_PLACEHOLDERS[0], () => `<html lang="${esc(resolvedLocale)}" data-theme="dark" data-preset="${esc(visualPreset)}">`)
     .replace(TEMPLATE_PLACEHOLDERS[1], () => `<title>${esc(translateMessage(resolvedLocale, 'page.title', { title }))}</title>`)

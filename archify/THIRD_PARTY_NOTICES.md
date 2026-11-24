@@ -84,26 +84,9 @@ The Node story scanner and builder include parse5 7.3.0 (MIT) and entities
 not embedded in generated HTML. Pinned sources, rebuild instructions and the
 complete licenses are in `story/vendor/`.
 
-## Code Analysis external diagnostics
+## Generated diagram validators
 
-The Code Analysis module includes the unmodified
-[OASIS SARIF 2.1.0 schema](https://github.com/oasis-tcs/sarif-spec/blob/1742a253eb654bf8a4ed7c60eaef7412b2c23553/sarif-2.1/schema/sarif-schema-2.1.0.json)
-from revision `1742a253`. Its repository content is governed by the
-[OASIS license terms and policies](https://github.com/oasis-tcs/sarif-spec/blob/1742a253eb654bf8a4ed7c60eaef7412b2c23553/LICENSE.md),
-including RF on RAND Terms Mode. The original terms are preserved in
-`modules/code-analysis/import/vendor/OASIS-LICENSE.md` in the packaged Skill.
-
-The line-context fingerprint algorithm is adapted from
-[github/codeql-action](https://github.com/github/codeql-action/blob/592d162ba3b2f5a3411d2cbf01df9f82c492f269/src/fingerprints.ts),
-revision `592d162b`, copyright (c) 2020 GitHub, under the MIT License.
-The complete license is preserved in
-`modules/code-analysis/import/vendor/CODEQL-LICENSE.txt` in the packaged Skill.
-
-## Code Analysis Atlas 3D
-
-The Atlas 3D view includes the unmodified minified build of
-[three.js](https://github.com/mrdoob/three.js) r128 (`three@0.128.0` on npm,
-`build/three.min.js`), copyright 2010-2021 three.js authors, under the MIT
-License. It is embedded in the analysis page and runs only when Atlas 3D is
-opened. The complete license is preserved in
-`modules/code-analysis/overlay/vendor/THREE-LICENSE.txt` in the packaged Skill.
+The precompiled validators in `renderers/shared/generated-validators.mjs` are
+generated from Archify's schema files using Ajv 8.20.0. They include an inline
+copy of the Unicode string-length helper used by Ajv's standalone output.
+The [Ajv MIT license](assets/Ajv-MIT.txt) accompanies the validators.

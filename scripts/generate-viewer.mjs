@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// Modified by DesireCore for the diagram distribution.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -13,7 +14,6 @@ const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 // markers are already at column 0; the standalone CSS file needs four spaces.
 const fragments = [
   ['/* ARCHIFY:VIEWER_CSS */', 'viewer.css', 4],
-  ['/* ARCHIFY:ANALYSIS_ENTRY_CSS */', '../archify/modules/code-analysis/overlay/client/entry.css', 4],
   ['/* ARCHIFY:EXPORT */', 'export.js'],
   ['/* ARCHIFY:READER_LAYOUT */', 'reader-layout.js'],
   ['/* ARCHIFY:CHROME_LAYOUT */', 'viewer-chrome-layout.js'],

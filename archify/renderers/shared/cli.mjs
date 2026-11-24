@@ -1,3 +1,4 @@
+// Modified by DesireCore for the diagram distribution.
 import { softwareNoticesHtml } from './software-notices.mjs';
 import { createHash } from 'node:crypto';
 import fs from 'node:fs';
@@ -240,7 +241,6 @@ export function writeDiagram({ outPath, template, diagramType, meta, svg, cards,
     cards: renderCards(cards),
     locale: meta.locale,
     visualPreset: meta.visual_preset || 'classic',
-    diagramButton: diagramType === 'architecture' && Boolean(meta.repository),
     feedbackLinks: meta.feedback_links !== false,
     sourceEvidence,
     explanations: diagram ? collectExplanations(diagramType, diagram) : null,
